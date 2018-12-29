@@ -15,3 +15,7 @@ def item_plat(name):
     json_obj = json.loads(string)
     plat = json_obj['payload']['statistics_closed']['48hours'][0]['avg_price']
     return plat
+
+def item_open(name):
+    name.replace(' ', '_').lower()
+    webbrowser.open('https://warframe.market/items/'+item_name(final))
