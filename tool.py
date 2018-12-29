@@ -5,26 +5,27 @@ string = url.read().decode('utf-8')# conversion
 json_obj = json.loads(string)
 payload = json_obj['payload']['items']['en']
 items = [payload[item]['item_name'] for item in range(len(payload))]
-print(items)
+user32 = ctypes.windll.user32
 current = set()
 
-COMBINATIONS = [{keyboard.Key.shift, keyboard.KeyCode(char='a')},
-        {keyboard.Key.shift, keyboard.KeyCode(char='A')}]
+COMBINATIONS = [{keyboard.Key.delete}]
 
 def execute():
     pytesseract.pytesseract.tesseract_cmd = 'C:\Program Files (x86)\Tesseract-OCR\\tesseract.exe'
     # top left item im = ImageGrab.grab(bbox=(120,250,360,490))
-    im = ImageGrab.grab(bbox=(1800,250,2450,1200))
+    #0.7,0.17,0.94,0.83 
+    #im = ImageGrab.grab(bbox=(1800,250,2450,1200))
+    im = ImageGrab.grab(bbox=(user32.GetSystemMetrics(0)*0.7,user32.GetSystemMetrics(1)*0.17,user32.GetSystemMetrics(0)*0.94,user32.GetSystemMetrics(1)*0.83))
     im.save("1.png")
     im = Image.open("1.png")
     # run ocr on image
     text = pytesseract.image_to_string(im, lang = "eng")
-    print(text)
     if len(difflib.get_close_matches(text,items,1)) > 0:
         final = difflib.get_close_matches(text,items,1)[0]
         print(final)
         print('Ducats:',item_ducats(final))
         print('Plat:',item_plat(final))
+        item_open(final)
     else:
         print('no matches.')
     
@@ -41,7 +42,5 @@ def on_release(key):
 with keyboard.Listener(on_press=on_press, on_release=on_release) as listener:
     listener.join()
 # to do
-# get warframe.market data from api on item...buyprice/sellprice/
-#click items to select them
 # show current plat price on item(s) on the right
-# find buy orders for item, copy name/msg to clipboard: button on the right that opens to browser
+# button on the right that opens to browser for market page
