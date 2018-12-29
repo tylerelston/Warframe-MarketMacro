@@ -1,7 +1,4 @@
-import tkinter,json,pytesseract,urllib.request,difflib
-from PIL import ImageGrab
-from PIL import Image
-from pynput import keyboard
+from init import *
 # warframe.market request for all items
 url= urllib.request.urlopen('https://api.warframe.market/v1/items')
 string = url.read().decode('utf-8')# conversion
@@ -16,7 +13,8 @@ COMBINATIONS = [{keyboard.Key.shift, keyboard.KeyCode(char='a')},
 
 def execute():
     pytesseract.pytesseract.tesseract_cmd = 'C:\Program Files (x86)\Tesseract-OCR\\tesseract.exe'
-    im = ImageGrab.grab(bbox=(120,250,360,490))
+    # top left item im = ImageGrab.grab(bbox=(120,250,360,490))
+    im = ImageGrab.grab(bbox=(1800,250,2450,1200))
     im.save("1.png")
     im = Image.open("1.png")
     # run ocr on image
@@ -24,6 +22,7 @@ def execute():
     if len(difflib.get_close_matches(text,items,1)) > 0:
         final = difflib.get_close_matches(text,items,1)[0]
         print(final)
+        item_price(final)
     else:
         print('no matches.')
     
@@ -41,6 +40,6 @@ with keyboard.Listener(on_press=on_press, on_release=on_release) as listener:
     listener.join()
 # to do
 # get warframe.market data from api on item...buyprice/sellprice/
-# show current plat price on item(s)
-# find buy orders for item, copy name/msg to clipboard
-# selection with mouse cursor
+#click items to select them
+# show current plat price on item(s) on the right
+# find buy orders for item, copy name/msg to clipboard: button(s) on the right
