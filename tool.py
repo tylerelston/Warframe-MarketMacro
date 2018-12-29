@@ -19,10 +19,12 @@ def execute():
     im = Image.open("1.png")
     # run ocr on image
     text = pytesseract.image_to_string(im, lang = "eng")
+    print(text)
     if len(difflib.get_close_matches(text,items,1)) > 0:
         final = difflib.get_close_matches(text,items,1)[0]
         print(final)
-        item_price(final)
+        print('Ducats:',item_ducats(final))
+        print('Plat:',item_plat(final))
     else:
         print('no matches.')
     
@@ -42,4 +44,4 @@ with keyboard.Listener(on_press=on_press, on_release=on_release) as listener:
 # get warframe.market data from api on item...buyprice/sellprice/
 #click items to select them
 # show current plat price on item(s) on the right
-# find buy orders for item, copy name/msg to clipboard: button(s) on the right
+# find buy orders for item, copy name/msg to clipboard: button on the right that opens to browser
