@@ -1,3 +1,3 @@
 # Warframe-MarkatMacro
 
-Provides QoL features for using Warframe with [warframe.market](https://warframe.market/).
+Provides QoL features to bring [warframe.market](https://warframe.market/) in-game functionality.
