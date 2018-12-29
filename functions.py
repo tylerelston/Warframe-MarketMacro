@@ -21,5 +21,5 @@ def item_plat(name):
     return plat
 
 def item_open(name):
-    name.replace(' ', '_').lower()
-    webbrowser.open('https://warframe.market/items/'+item_name(final))
+    name = name.replace(' ', '_').lower()
+    webbrowser.open('https://warframe.market/items/'+name)
