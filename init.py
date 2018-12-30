@@ -1,4 +1,4 @@
-import tkinter,json,pytesseract,urllib.request,difflib,webbrowser
+import tkinter,json,pytesseract,urllib.request,difflib,webbrowser,os
 from PIL import ImageGrab
 from PIL import Image
 from pynput import keyboard
