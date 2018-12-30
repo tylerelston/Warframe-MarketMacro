@@ -5,13 +5,15 @@ string = url.read().decode('utf-8')# conversion
 json_obj = json.loads(string)
 payload = json_obj['payload']['items']['en']
 items = [payload[item]['item_name'] for item in range(len(payload))]
+cwd = os.getcwd()
+pytesseract.pytesseract.tesseract_cmd = cwd+'\Tesseract-OCR\\tesseract.exe'
 user32 = ctypes.windll.user32
 current = set()
 
 COMBINATIONS = [{keyboard.Key.delete}]
 
 def execute():
-    pytesseract.pytesseract.tesseract_cmd = 'C:\Program Files (x86)\Tesseract-OCR\\tesseract.exe'
+    #pytesseract.pytesseract.tesseract_cmd = 'C:\Program Files (x86)\Tesseract-OCR\\tesseract.exe'
     # top left item im = ImageGrab.grab(bbox=(120,250,360,490))
     #0.7,0.17,0.94,0.83 
     #im = ImageGrab.grab(bbox=(1800,250,2450,1200))
